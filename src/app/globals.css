@@ -1,26 +1,293 @@
 @import "tailwindcss";
 
+/* Class-based dark mode so next-themes can drive Light / Dark / System */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ----------------------------------------------------------------------------
+   Design tokens (extracted from the Figma Marketing source of truth).
+   Light is the default theme; .dark overrides flip the whole palette.
+---------------------------------------------------------------------------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* backgrounds */
+  --canvas: #dceae6;
+  --surface: #ecf1f1;
+  --raised: #ffffff;
+  --sunken: #cfe0dc;
+  --incognito: #b6d2cc;
+  --inverse: #091413;
+  --hover: #dceae6;
+
+  /* text */
+  --ink: #091413;
+  --muted: #2c544e;
+  --faint: #3e6e66;
+  --disabled: #5c8b83;
+  --on-accent: #091413;
+  --on-value: #091413;
+  --inverse-ink: #e9f2ef;
+
+  /* value (money) */
+  --value: #6e5320;
+  --value-soft: #d6aa55;
+
+  /* accent (verdigris) */
+  --accent: #1e8e78;
+  --accent-ink: #146253;
+  --accent-pressed: #28a98f;
+  --accent-subtle: #d7f6ef;
+
+  /* borders */
+  --line-subtle: #b6d2cc;
+  --line: #9dbdb6;
+  --line-strong: #5c8b83;
+  --focus: #1e8e78;
+  --divider: #cfe0dc;
+
+  /* feedback */
+  --success: #1e8e78;
+  --success-surface: #d7f6ef;
+  --error: #b5402e;
+  --error-surface: #fbe2dd;
+  --warning: #9a5a18;
+  --warning-surface: #fbe8d6;
+
+  --scrim: 9 20 19; /* rgb of #091413 for rgba scrims */
+
+  /* motion tokens */
+  --dur-instant: 0ms;
+  --dur-fast: 160ms;
+  --dur-base: 240ms;
+  --dur-slow: 360ms;
+  --dur-bloom: 420ms;
+  --dur-deliberate: 520ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --ease-accelerate: cubic-bezier(0.3, 0, 1, 1);
 }
 
+.dark {
+  --canvas: #091413;
+  --surface: #122120;
+  --raised: #18302c;
+  --sunken: #0f1c1a;
+  --incognito: #050c0b;
+  --inverse: #ecf1f1;
+  --hover: #18302c;
+
+  --ink: #e9f2ef;
+  --muted: #84aba4;
+  --faint: #6e9c94;
+  --disabled: #3e6e66;
+  --on-accent: #091413;
+  --on-value: #091413;
+  --inverse-ink: #091413;
+
+  --value: #f4c97a;
+  --value-soft: #f4c97a;
+
+  --accent: #34cfb0;
+  --accent-ink: #34cfb0;
+  --accent-pressed: #5fdcc3;
+  --accent-subtle: #146253;
+
+  --line-subtle: #18302c;
+  --line: #21413c;
+  --line-strong: #2c544e;
+  --focus: #34cfb0;
+  --divider: #0f1c1a;
+
+  --success: #34cfb0;
+  --success-surface: #0e2a24;
+  --error: #f08a7a;
+  --error-surface: #3a1714;
+  --warning: #ee9a52;
+  --warning-surface: #2e2110;
+
+  --scrim: 0 0 0;
+}
+
+/* ----------------------------------------------------------------------------
+   Map tokens to Tailwind utilities (inline = reference vars, no duplication)
+---------------------------------------------------------------------------- */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-sunken: var(--sunken);
+  --color-incognito: var(--incognito);
+  --color-inverse: var(--inverse);
+  --color-hover: var(--hover);
+
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-disabled: var(--disabled);
+  --color-on-accent: var(--on-accent);
+  --color-on-value: var(--on-value);
+  --color-inverse-ink: var(--inverse-ink);
+
+  --color-value: var(--value);
+  --color-value-soft: var(--value-soft);
+
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-pressed: var(--accent-pressed);
+  --color-accent-subtle: var(--accent-subtle);
+
+  --color-line-subtle: var(--line-subtle);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-focus: var(--focus);
+  --color-divider: var(--divider);
+
+  --color-success: var(--success);
+  --color-success-surface: var(--success-surface);
+  --color-error: var(--error);
+  --color-error-surface: var(--error-surface);
+  --color-warning: var(--warning);
+  --color-warning-surface: var(--warning-surface);
+
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+
+  --font-display: var(--font-bricolage);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-syne: var(--font-syne);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ----------------------------------------------------------------------------
+   Base
+---------------------------------------------------------------------------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  body {
+    background-color: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font-sans), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background-color: var(--accent-subtle);
+    color: var(--accent-ink);
+  }
+  /* Theme-toggle crossfade: colors ease between modes (token duration). */
+  @media (prefers-reduced-motion: no-preference) {
+    body,
+    body *:not(svg *) {
+      transition-property: background-color, border-color, color;
+      transition-duration: var(--dur-base);
+      transition-timing-function: var(--ease-standard);
+    }
+  }
+  /* Visible focus, brand ring, no focus ring on mouse */
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ----------------------------------------------------------------------------
+   Type scale (matches Figma text styles)
+---------------------------------------------------------------------------- */
+@layer components {
+  .t-display-hero {
+    font-family: var(--font-display), sans-serif;
+    font-weight: 600;
+    font-size: 64px;
+    line-height: 1.0625;
+    letter-spacing: -0.02em;
+  }
+  .t-display-xl {
+    font-family: var(--font-display), sans-serif;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+  }
+  .t-display-l {
+    font-family: var(--font-display), sans-serif;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+  }
+  .t-title-l {
+    font-family: var(--font-display), sans-serif;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 1.21;
+    letter-spacing: -0.01em;
+  }
+  .t-title-m {
+    font-family: var(--font-display), sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.27;
+    letter-spacing: -0.005em;
+  }
+  .t-title-s {
+    font-family: var(--font-sans), sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.33;
+  }
+  .t-body-l {
+    font-family: var(--font-sans), sans-serif;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 1.47;
+  }
+  .t-body-m {
+    font-family: var(--font-sans), sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.47;
+  }
+  .t-label-l {
+    font-family: var(--font-sans), sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25;
+  }
+  .t-label-m {
+    font-family: var(--font-sans), sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.29;
+  }
+  .t-caption {
+    font-family: var(--font-sans), sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.38;
+  }
+  .t-overline {
+    font-family: var(--font-sans), sans-serif;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 1.27;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+  .t-mono {
+    font-family: var(--font-mono), monospace;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 1.41;
+  }
 }
