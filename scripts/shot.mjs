@@ -24,8 +24,19 @@ await page.goto(url, { waitUntil: "domcontentloaded" });
 await page.evaluate((t) => localStorage.setItem("theme", t), theme);
 await page.goto(url + routePath, { waitUntil: "networkidle0" });
 await page.evaluate(() => document.fonts.ready);
-await new Promise((r) => setTimeout(r, 600));
 
-await page.screenshot({ path: out, fullPage: true });
+// Grow the viewport to the full page height so every whileInView section is
+// in-view at once and reveals settle, then capture.
+const fullHeight = await page.evaluate(() =>
+  Math.min(document.body.scrollHeight, 24000),
+);
+await page.setViewport({
+  width: Number(width),
+  height: fullHeight,
+  deviceScaleFactor: 2,
+});
+await new Promise((r) => setTimeout(r, 900));
+
+await page.screenshot({ path: out });
 await browser.close();
 console.log("saved", out);
