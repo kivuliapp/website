@@ -3,6 +3,9 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Bricolage_Grotesque, Syne } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Nav } from "@/components/layout/nav";
+import { Footer } from "@/components/layout/footer";
+import { CookieBanner } from "@/components/layout/cookie-banner";
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({
@@ -47,7 +50,18 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          {children}
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:font-sans focus:text-[14px] focus:font-medium focus:text-on-accent"
+          >
+            Skip to content
+          </a>
+          <Nav />
+          <main id="main" className="flex-1">
+            {children}
+          </main>
+          <Footer />
+          <CookieBanner />
         </ThemeProvider>
       </body>
     </html>
