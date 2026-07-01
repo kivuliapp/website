@@ -81,7 +81,7 @@ export function Nav() {
           role="dialog"
           aria-modal="true"
           aria-label="Menu"
-          className="fixed inset-0 z-50 flex flex-col bg-canvas lg:hidden"
+          className="fixed inset-0 z-[65] flex flex-col bg-canvas lg:hidden"
         >
           <div className="flex h-[72px] items-center justify-between px-6">
             <Logo />
