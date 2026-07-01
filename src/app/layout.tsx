@@ -22,14 +22,54 @@ const syne = Syne({
   display: "swap",
 });
 
+const description =
+  "Private by default. No seed phrases, no paperwork. Hold, send, and keep your money yours. Now in private beta on TestFlight.";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://kivuli.xyz"),
   title: {
-    default: "Kivuli — Private money for everyday life",
-    template: "%s — Kivuli",
+    default: "Kivuli · Private money for everyday life",
+    template: "%s · Kivuli",
   },
-  description:
-    "Private by default. No seed phrases, no paperwork. Hold, send, and keep your money yours. Now in private beta on TestFlight.",
+  description,
+  applicationName: "Kivuli",
+  keywords: [
+    "private money",
+    "private payments",
+    "no seed phrase",
+    "Kivuli",
+    "TestFlight",
+    "private wallet",
+  ],
+  authors: [{ name: "Kivuli" }],
+  creator: "Kivuli",
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: "Kivuli",
+    url: "https://kivuli.xyz",
+    title: "Kivuli · Private money for everyday life",
+    description,
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "Kivuli. Money that stays yours.",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kivuli · Private money for everyday life",
+    description,
+    images: ["/og.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
+  },
 };
 
 export const viewport: Viewport = {
