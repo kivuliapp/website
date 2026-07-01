@@ -1,21 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useMounted } from "@/lib/use-mounted";
 
 const STORAGE_KEY = "kivuli-cookie-consent";
 
 export function CookieBanner() {
-  const [show, setShow] = useState(false);
+  const mounted = useMounted();
+  const [dismissed, setDismissed] = useState(false);
 
-  useEffect(() => {
-    try {
-      if (!localStorage.getItem(STORAGE_KEY)) setShow(true);
-    } catch {
-      // storage unavailable, stay hidden
-    }
-  }, []);
+  if (!mounted || dismissed) return null;
+
+  let stored: string | null = null;
+  try {
+    stored = localStorage.getItem(STORAGE_KEY);
+  } catch {
+    // storage unavailable, treat as not-yet-decided
+  }
+  if (stored) return null;
 
   function decide(value: "accepted" | "managed") {
     try {
@@ -23,10 +27,8 @@ export function CookieBanner() {
     } catch {
       // ignore
     }
-    setShow(false);
+    setDismissed(true);
   }
-
-  if (!show) return null;
 
   return (
     <div

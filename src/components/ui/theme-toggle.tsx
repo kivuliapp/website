@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { Sun, Moon, Monitor } from "lucide-react";
+import { useMounted } from "@/lib/use-mounted";
 import { cn } from "@/lib/utils";
 
 const options = [
@@ -13,8 +13,7 @@ const options = [
 
 export function ThemeToggle({ className }: { className?: string }) {
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const mounted = useMounted();
   const current = mounted ? theme : undefined;
 
   return (
