@@ -15,7 +15,11 @@ const faqs = [
   },
   {
     q: "How is it private?",
-    a: "Your balance and payments are shielded by default. Incognito mode adds another layer that leaves no trace.",
+    a: "Each payment uses a fresh address, so nothing lands on a public ledger. Incognito mode adds another layer with no trace.",
+  },
+  {
+    q: "Does Kivuli hold my money?",
+    a: "No. Only you hold the keys, so only you can move your funds. Kivuli can't touch, freeze, or see them.",
   },
   {
     q: "Do I need to verify my identity?",

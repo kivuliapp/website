@@ -23,7 +23,7 @@ const syne = Syne({
 });
 
 const description =
-  "Private by default. No seed phrases, no paperwork. Hold, send, and keep your money yours. Now in private beta on TestFlight.";
+  "A private, self-custody wallet only you control. Your money never hits a public ledger for anyone to trace. No seed phrase, no KYC. Now in private beta on TestFlight.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kivuli.xyz"),

@@ -10,8 +10,8 @@ type Feature = { icon: LucideIcon; title: string; body: string };
 const features: Feature[] = [
   {
     icon: ShieldCheck,
-    title: "Private by default",
-    body: "Every balance and payment is private from the start. Privacy is the setting you never have to go looking for.",
+    title: "Off the public ledger",
+    body: "Your balance and payments never get posted to a public chain, so there is no trail for anyone to follow or trace back to you.",
   },
   {
     icon: Globe,

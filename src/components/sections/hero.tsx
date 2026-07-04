@@ -38,8 +38,8 @@ export function Hero() {
         </motion.h1>
 
         <motion.p variants={item} className="t-body-l mt-5 max-w-[560px] text-muted">
-          Private by default. No seed phrases, no paperwork, no one watching. Just
-          your money, ready the moment you need it.
+          The private wallet only you control. Your balance and payments never hit
+          a public ledger, so no one can see your money or trace where it goes.
         </motion.p>
 
         <motion.div

@@ -4,12 +4,12 @@ import { Reveal } from "@/components/ui/reveal";
 
 const points = [
   {
-    title: "Private by default",
-    body: "Balances and payments are shielded from the very first tap.",
+    title: "Off the public ledger",
+    body: "Your balance and history never land on a public chain to trace.",
   },
   {
-    title: "You hold your money",
-    body: "Only you can move your funds. Kivuli never takes custody.",
+    title: "You hold the keys",
+    body: "Only you can move your funds. Kivuli can't freeze or take them.",
   },
   {
     title: "No KYC, ever",
@@ -28,9 +28,9 @@ export function Security() {
               Private is the default, not a setting.
             </h2>
             <p className="t-body-l text-muted">
-              Kivuli is built so privacy is not a switch you remember to flip. Your
-              balance and your payments are yours alone, and staying private takes
-              no extra thought.
+              Kivuli is built so privacy is never a switch you remember to flip.
+              Only you hold the keys, and your balance and payments stay yours
+              alone with no extra thought.
             </p>
           </div>
 
