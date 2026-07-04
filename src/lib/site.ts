@@ -6,7 +6,7 @@ export const site = {
   ensName: "kivuli.eth",
   tagline:
     "Private money for everyday life. Hold it, send it, keep it yours.",
-  testflightUrl: "https://testflight.apple.com/join/kivuli",
+  testflightUrl: "https://testflight.apple.com/join/pTRfYSMd",
   opaqueUrl: "https://opaque.cash",
   social: {
     x: "https://x.com/kivuli",
